@@ -3,7 +3,8 @@ import {
   EllipsisHorizontalIcon,
   HeartIcon,
   ChatBubbleLeftIcon,
-  BookmarkIcon
+  BookmarkIcon,
+  FaceSmileIcon
 } from "@heroicons/react/24/outline"
 
 export default function FeedPosts() {
@@ -20,7 +21,7 @@ export default function FeedPosts() {
       userName: "ninggen",
       userImg: "https://i.pravatar.cc/150?img=19",
       img: "https://phantom-marca.unidadeditorial.es/36b733ae69cb4607319886fbce9a14d0/resize/1320/f/jpg/assets/multimedia/imagenes/2022/10/31/16672255275951.jpg",
-      caption: "This is a caption to hehe"
+      caption: "This is a caption to but too much much than the first one"
     }
   ]
   return (
@@ -44,8 +45,19 @@ export default function FeedPosts() {
               <HeartIcon className="btn" />
               <ChatBubbleLeftIcon className="btn" />
             </div>
-              <BookmarkIcon className="btn" />
+            <BookmarkIcon className="btn" />
           </div>
+          {/* PostComment */}
+          <p className="px-5 py-2 truncate">
+            <span className="font-medium mr-1">{post.userName}</span>
+            {post.caption}
+          </p>
+          {/* PostInputBox */}
+          <form action="" className="flex relative items-center">
+            <FaceSmileIcon className="btn absolute left-2"/>
+            <input type="text" placeholder="Enter your comment" name="" id="" className="pl-10 pr-12 border-none focus:ring-0 w-full"/>
+            <button className="absolute right-2 text-blue-500">post</button>
+          </form>
         </div>
       ))}
     </div>
