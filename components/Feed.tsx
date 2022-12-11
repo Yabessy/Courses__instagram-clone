@@ -1,6 +1,7 @@
-import FeedMiniProfile from "./FeedMiniProfile"
-import FeedPost from "./FeedPosts"
 import FeedStories from "./FeedStories"
+import FeedPost from "./FeedPosts"
+import FeedMiniProfile from "./FeedMiniProfile"
+import FeedSuggestions from "./FeedSuggestions"
 
 export default function Feed() {
   return (
@@ -15,7 +16,8 @@ export default function Feed() {
         <div className="fixed w-[380px]">
           {/* Mini Profile */}
           <FeedMiniProfile />
-          {/* Sugesstion */}
+          {/* Suggestions */}
+          <FeedSuggestions />
         </div>
       </section>
     </main>
