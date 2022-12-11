@@ -1,5 +1,10 @@
 import React from "react"
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline"
+import {
+  EllipsisHorizontalIcon,
+  HeartIcon,
+  ChatBubbleLeftIcon,
+  BookmarkIcon
+} from "@heroicons/react/24/outline"
 
 export default function FeedPosts() {
   const posts = [
@@ -22,6 +27,7 @@ export default function FeedPosts() {
     <div>
       {posts.map((post) => (
         <div key={post.id} className="w-[450px] bg-white my-7 shadow">
+          {/* PostHeader */}
           <div className="flex items-center border-b-2 p-3">
             <img
               src={post.userImg}
@@ -30,7 +36,16 @@ export default function FeedPosts() {
             <h1 className="text-lg ml-4">{post.userName}</h1>
             <EllipsisHorizontalIcon className="h-5 ml-auto pr-1" />
           </div>
+          {/* PostImage */}
           <img src={post.img} alt="" className="w-fit aspect-square" />
+          {/* PostButtons */}
+          <div className="flex justify-between p-4">
+            <div className="flex space-x-1">
+              <HeartIcon className="btn" />
+              <ChatBubbleLeftIcon className="btn" />
+            </div>
+              <BookmarkIcon className="btn" />
+          </div>
         </div>
       ))}
     </div>
