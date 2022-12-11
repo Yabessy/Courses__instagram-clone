@@ -1,10 +1,10 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import minifaker from "minifaker"
 import "minifaker/locales/en"
 
 export default function FeedStories() {
-  const [stories, setStories] = React.useState([])
-  React.useEffect(() => {
+  const [stories, setStories] = useState([])
+  useEffect(() => {
     const stories = minifaker.array(20, (i: any) => ({
       username: minifaker.username({ locale: "en" }).toLocaleLowerCase(),
       img: `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 70)}`,
@@ -16,7 +16,7 @@ export default function FeedStories() {
 
   return (
     <div className="flex space-x-2 p-3 sm:p-6 w-full bg-white mt-8 border-gray-200 border overflow-x-scroll rounded scrollbar-none">
-      {stories.map((user:any) => (
+      {stories.map((user: any) => (
         <div key={user.id}>
           <img
             src={user.img}

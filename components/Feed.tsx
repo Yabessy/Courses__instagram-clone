@@ -1,4 +1,4 @@
-import React from "react"
+import FeedMiniProfile from "./FeedMiniProfile"
 import FeedPost from "./FeedPosts"
 import FeedStories from "./FeedStories"
 
@@ -12,8 +12,11 @@ export default function Feed() {
         <FeedPost />
       </section>
       <section className="md:col-span-1">
-        {/* Mini Profile */}
-        {/* Sugesstion */}
+        <div className="fixed w-[380px]">
+          {/* Mini Profile */}
+          <FeedMiniProfile />
+          {/* Sugesstion */}
+        </div>
       </section>
     </main>
   )

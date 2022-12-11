@@ -1,5 +1,4 @@
 import Image from "next/image"
-import React from "react"
 import { MagnifyingGlassIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/outline"
 
 export default function Header() {
@@ -43,7 +42,7 @@ export default function Header() {
           <img
             src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2991280.png&w=350&h=254"
             alt="User Photo"
-            className="h-10 rounded-full cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out"
+            className="h-10 w-10 rounded-full cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out"
           />
         </div>
       </div>
