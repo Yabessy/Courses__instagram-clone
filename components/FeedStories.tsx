@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
 import minifaker from "minifaker"
 import "minifaker/locales/en"
+import { useSession } from "next-auth/react"
+import { PlusIcon } from "@heroicons/react/24/outline"
 
 export default function FeedStories() {
   const [stories, setStories] = useState([])
+  const { data: session } = useSession()
   useEffect(() => {
     const stories = minifaker.array(20, (i: any) => ({
       username: minifaker.username({ locale: "en" }).toLocaleLowerCase(),
@@ -16,6 +19,18 @@ export default function FeedStories() {
 
   return (
     <div className="flex space-x-2 p-3 sm:p-6 w-full bg-white mt-8 border-gray-200 border overflow-x-scroll rounded scrollbar-none">
+      {session && (
+        <div className="relative group cursor-pointer">
+          <img
+            //   @ts-ignore
+            src={session?.user.image}
+            alt="User Photo"
+            className="h-14 w-14 rounded-full p-[1.5px] border-red-500 border-2 object-contain cursor-pointer group-hover:scale-110 transition-transform duration-200 ease-in-out"
+          />
+          <PlusIcon className="h-7 w-7 absolute top-3.5 left-3.5 text-white opacity-70" />
+          <p className="text-xs w-14 truncate text-center">Your Story</p>
+        </div>
+      )}
       {stories.map((user: any) => (
         <div key={user.id}>
           <img

@@ -4,7 +4,6 @@ import "minifaker/locales/en"
 
 export default function FeedSuggestions() {
   const [suggestions, setSuggestions] = useState([])
-  console.log(suggestions)
   useEffect(() => {
     const suggestions = minifaker.array(5, (i: any) => ({
       username: minifaker.username({ locale: "en" }).toLowerCase(),
