@@ -5,7 +5,7 @@ import {
   BookmarkIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline"
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from "../firebase"
 import { useSession } from "next-auth/react"
@@ -13,6 +13,20 @@ import { useSession } from "next-auth/react"
 export default function FeedPosts() {
   const { data: session } = useSession()
   const [posts, setPosts] = useState([])
+  const [comment, setComment] = useState("")
+  async function sendComment(e: any, id: string) {
+    e.preventDefault()
+    const commentToSend = comment
+    setComment("")
+    await addDoc(collection(db, "posts", id, "comments"), {
+      comment: commentToSend,
+      // @ts-ignore
+      username: session.user.username,
+      // @ts-ignore
+      profileImg: session.user.image,
+      timestamp: serverTimestamp()
+    })
+  }
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts"), orderBy("timestamp", "desc")),
@@ -26,7 +40,7 @@ export default function FeedPosts() {
     <div>
       {posts.map((post) => (
         // @ts-ignore
-        <div key={post.data().image} className="w-full bg-white my-7 shadow">
+        <div key={post.id} className="w-full bg-white my-7 shadow">
           {/* PostHeader */}
           <div className="flex items-center border-b-2 p-3">
             <img
@@ -69,11 +83,19 @@ export default function FeedPosts() {
               <input
                 type="text"
                 placeholder="Enter your comment"
-                name=""
-                id=""
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
                 className="pl-10 pr-12 border-none focus:ring-0 w-full"
               />
-              <button className="absolute right-2 text-blue-500">post</button>
+              <button
+                disabled={!comment.trim()}
+                type="submit"
+                // @ts-ignore
+                onClick={(e) => sendComment(e, post.id)}
+                className="disabled:text-gray-200 absolute right-2 text-blue-500"
+              >
+                post
+              </button>
             </form>
           )}
         </div>
