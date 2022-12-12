@@ -1,9 +1,12 @@
 import Image from "next/image"
 import { MagnifyingGlassIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRecoilState } from "recoil"
+import { modalState } from "../atom/modalAtom"
 
 export default function Header() {
   const { data: session } = useSession()
+  const [open,setOpen] = useRecoilState(modalState)
   return (
     <div className="shadow-sm sticky top-0 border-b bg-white z-10 w-screen">
       <div className="flex items-center justify-between px-2 lg:px-10 mx-0 sm:mx-4 xl:mx-auto">
@@ -41,7 +44,7 @@ export default function Header() {
         {session ? (
           <div className="flex flex-row space-x-4 items-center">
             <HomeIcon className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out" />
-            <PlusIcon className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out" />
+            <PlusIcon onClick={()=>setOpen(true)} className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out" />
             <img
               //   @ts-ignore
               src={session?.user?.image}

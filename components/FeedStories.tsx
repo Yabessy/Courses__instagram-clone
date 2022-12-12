@@ -27,7 +27,7 @@ export default function FeedStories() {
             alt="User Photo"
             className="h-14 w-14 rounded-full p-[1.5px] border-red-500 border-2 object-contain cursor-pointer group-hover:scale-110 transition-transform duration-200 ease-in-out"
           />
-          <PlusIcon className="h-7 w-7 absolute top-3.5 left-3.5 text-white opacity-70" />
+          <PlusIcon className="h-6 w-6 absolute top-4 left-4 text-white opacity-60 group-hover:scale-150 group-hover:opacity-70 group-hover:rotate-90 transition-transform duration-700 ease-in-out" />
           <p className="text-xs w-14 truncate text-center">Your Story</p>
         </div>
       )}

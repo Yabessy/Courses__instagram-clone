@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Feed from '../components/Feed'
-import Header from '../components/Header'
+import type { NextPage } from "next"
+import Head from "next/head"
+import { Header, Feed, UploadModal } from "../components/@index"
 
 const Home: NextPage = () => {
   return (
@@ -10,8 +9,10 @@ const Home: NextPage = () => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header/>
-      <Feed/>
+
+      <Header />
+      <Feed />
+      <UploadModal />
     </div>
   )
 }
