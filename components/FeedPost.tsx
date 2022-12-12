@@ -108,7 +108,8 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
       )}
 
       {/* PostComment */}
-      <p className="px-5 py-2 truncate">
+      <p className="p-5 py-2 truncate">
+        {likes.length > 0 && <p className="font-bold mb-1 text-black">{likes.length} likes</p>}   
         {/* @ts-ignore */}
         <span className="font-medium mr-1">{username}</span>
         {/* @ts-ignore */}
