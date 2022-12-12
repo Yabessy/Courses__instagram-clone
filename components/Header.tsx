@@ -3,10 +3,12 @@ import { MagnifyingGlassIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/out
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRecoilState } from "recoil"
 import { modalState } from "../atom/modalAtom"
+import { useRouter } from "next/router"
 
 export default function Header() {
+  const router = useRouter()
   const { data: session } = useSession()
-  const [open,setOpen] = useRecoilState(modalState)
+  const [open, setOpen] = useRecoilState(modalState)
   return (
     <div className="shadow-sm sticky top-0 border-b bg-white z-10 w-screen">
       <div className="flex items-center justify-between px-2 lg:px-10 mx-0 sm:mx-4 xl:mx-auto">
@@ -17,6 +19,7 @@ export default function Header() {
             layout="fill"
             src={`https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png`}
             className="object-contain"
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="cursor-pointer my-5 mx-3 w-6 h-6 relative lg:hidden">
@@ -25,6 +28,7 @@ export default function Header() {
             layout="fill"
             src={`https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/800px-Instagram_logo_2022.svg.png`}
             className="object-contain"
+            onClick={() => router.push("/")}
           />
         </div>
         {/* Middle */}
@@ -43,8 +47,14 @@ export default function Header() {
         {/* Right */}
         {session ? (
           <div className="flex flex-row space-x-4 items-center">
-            <HomeIcon className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out" />
-            <PlusIcon onClick={()=>setOpen(true)} className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out" />
+            <HomeIcon
+              onClick={() => router.push("/")}
+              className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out"
+            />
+            <PlusIcon
+              onClick={() => setOpen(true)}
+              className="hidden md:inline-flex h-6 w-6 cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out"
+            />
             <img
               //   @ts-ignore
               src={session?.user?.image}
