@@ -53,7 +53,6 @@ export default function UploadModal() {
   const captionRef = useRef(null)
   return (
     <div className="w-screen h-screen">
-      UploadModal
       {open && (
         <Modal
           className="max-w-lg w-[90%] h-[350px] absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-white ring-0 border-2 rounded shadow-md"
