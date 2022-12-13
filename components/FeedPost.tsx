@@ -46,19 +46,19 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
   useEffect(() => {
     setLiked(
       // @ts-ignore
-      likes.findIndex((like) => like.id === currentUser.uid) !== -1
+      likes.findIndex((like) => like.id === currentUser?.uid) !== -1
     )
   }, [likes])
 
   async function likePost() {
     if (liked) {
       // @ts-ignore
-      await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
+      await deleteDoc(doc(db, "posts", id, "likes", currentUser?.uid))
     } else {
       // @ts-ignore
-      await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
+      await setDoc(doc(db, "posts", id, "likes", currentUser?.uid), {
         // @ts-ignore
-        username: currentUser.username
+        username: currentUser?.username
       })
       setLiked(true)
     }
@@ -70,9 +70,9 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
       // @ts-ignore
-      username: currentUser.username,
+      username: currentUser?.username,
       // @ts-ignore
-      profileImg: currentUser.userImg,
+      profileImg: currentUser?.userImg,
       timestamp: serverTimestamp()
     })
   }

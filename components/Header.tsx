@@ -89,7 +89,7 @@ export default function Header() {
             />
             <img
               //   @ts-ignore
-              src={currentUser.userImg}
+              src={currentUser?.userImg}
               onClick={() => onSignOut()}
               alt="User Photo"
               className="h-10 w-10 rounded-full cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out"

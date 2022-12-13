@@ -25,7 +25,7 @@ export default function FeedStories() {
         <div className="relative group cursor-pointer">
           <img
             //   @ts-ignore
-            src={currentUser.userImg}
+            src={currentUser?.userImg}
             alt="User Photo"
             className="h-14 w-14 rounded-full p-[1.5px] border-red-500 border-2 object-contain cursor-pointer group-hover:scale-110 transition-transform duration-200 ease-in-out"
           />
