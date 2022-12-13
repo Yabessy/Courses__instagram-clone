@@ -17,9 +17,10 @@ import {
   serverTimestamp,
   setDoc
 } from "firebase/firestore"
-import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
+import { useRecoilState } from "recoil"
+import { userState } from "../atom/userAtom"
 import { db } from "../firebase"
 
 export default function FeedPost({ id, profileImg, username, image, caption }: any) {
@@ -27,6 +28,7 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
   const [comments, setComments] = useState([])
   const [likes, setLikes] = useState([])
   const [liked, setLiked] = useState(false)
+  const [currentUser] = useRecoilState(userState)
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")),
@@ -35,6 +37,7 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
       }
     )
   }, [db, id])
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "posts", id, "likes"), (snapshot: any) =>
       setLikes(snapshot.docs)
@@ -43,18 +46,19 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
   useEffect(() => {
     setLiked(
       // @ts-ignore
-      likes.findIndex((like) => like.id === session?.user.uid) !== -1
+      likes.findIndex((like) => like.id === currentUser.uid) !== -1
     )
   }, [likes])
+
   async function likePost() {
     if (liked) {
       // @ts-ignore
-      await deleteDoc(doc(db, "posts", id, "likes", session?.user.uid))
+      await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
     } else {
       // @ts-ignore
-      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+      await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
         // @ts-ignore
-        username: session.user.username
+        username: currentUser.username
       })
       setLiked(true)
     }
@@ -66,13 +70,12 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
       // @ts-ignore
-      username: session.user.username,
+      username: currentUser.username,
       // @ts-ignore
-      profileImg: session.user.image,
+      profileImg: currentUser.userImg,
       timestamp: serverTimestamp()
     })
   }
-  const { data: session } = useSession()
   return (
     // @ts-ignore
     <div className="w-full bg-white my-7 shadow">
@@ -93,7 +96,7 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
       <img src={image} alt="" className="w-full aspect-square object-cover" />
 
       {/* PostButtons */}
-      {session && (
+      {currentUser && (
         <div className="flex justify-between p-4">
           <div className="flex space-x-1">
             {liked ? (
@@ -108,13 +111,13 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
       )}
 
       {/* PostComment */}
-      <p className="p-5 py-2 truncate">
+      <div className="p-5 py-2 truncate">
         {likes.length > 0 && <p className="font-bold mb-1 text-black">{likes.length} likes</p>}   
         {/* @ts-ignore */}
         <span className="font-medium mr-1">{username}</span>
         {/* @ts-ignore */}
         {caption}
-      </p>
+      </div>
       {comments.length > 0 && (
         <div className="mx-10 max-h-24 scrollbar-thin overflow-y-scroll">
           {comments.map((comment: any) => (
@@ -133,7 +136,7 @@ export default function FeedPost({ id, profileImg, username, image, caption }: a
       )}
 
       {/* PostInputBox */}
-      {session && (
+      {currentUser && (
         <form action="" className="flex relative items-center">
           <FaceSmileIcon className="btn absolute left-2" />
           <input

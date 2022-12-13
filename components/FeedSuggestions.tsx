@@ -4,6 +4,7 @@ import "minifaker/locales/en"
 
 export default function FeedSuggestions() {
   const [suggestions, setSuggestions] = useState([])
+
   useEffect(() => {
     const suggestions = minifaker.array(5, (i: any) => ({
       username: minifaker.username({ locale: "en" }).toLowerCase(),
@@ -32,7 +33,9 @@ export default function FeedSuggestions() {
             <h2 className="font-bold">{user.username}</h2>
             <h3 className="text-sm text-gray-400">{user.job}</h3>
           </div>
-          <button className="text-blue-400 text-sm font-semibold">Follow</button>
+          <button className="text-blue-400 text-sm font-semibold">
+            Follow
+          </button>
         </div>
       ))}
     </div>
