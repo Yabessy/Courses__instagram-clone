@@ -31,7 +31,6 @@ export default function Header() {
           if (docSnap.exists()) {
             // @ts-ignore
             setCurrentUser(docSnap.data())
-            console.log(currentUser)
           }
         }
         fetchUser()
